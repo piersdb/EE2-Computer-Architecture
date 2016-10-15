@@ -7,4 +7,4 @@ add r1,r1,r1
 add r1,r1,r1 ; r1 = 4r0-4r1
 sub r1,r1,r2 ;r1 = 3r0 - 4r1
 
-rsb r2,r2,11
+rsb r2,r2,#11
