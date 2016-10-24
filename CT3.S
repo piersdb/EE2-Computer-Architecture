@@ -1,7 +1,29 @@
-Input: R1 (must be an odd number > 0, operation otherwise not specified)
-Output: R0
-Operation: R0 := -1*-3*-5*....*-n where n is the value input in R1 (result is two's complement signed and truncated to 32 bits)
-This calculates the product of all negative odd numbers up to a specified number.
-You may use all registers
-Your answer must use only the instructions introduced so far. No multiply instruction MUL or variant 4. No ALU instructions with S. No TST instruction. No conditional execution of instructions other than B.
-All of these additional features of ARM assembler would help to simplify your answer, but they will be taught later and are not allowed now.
+			
+			
+			
+			
+			
+			mov		r4,r1
+			
+			;		r1 is input
+			;r0		is output
+			mov		r2,r1
+			sub		r2,r2,#2
+DecendLoop	mov		r3,r2
+			mov		r0,#0
+MulLoop		CMP		r3,#0
+			Ble		loopend
+			sub		r3,r3,#1
+			add		r0,r0,r1
+			b		MulLoop
+loopend		mov		r1,r0
+			sub		r2,r2,#2
+			cmp		r2,#1
+			Bgt		DecendLoop
+			
+			
+			and		r4,r4,#2
+			cmp		r4,#2
+			beq		endd
+			rsb		r0,r0,#0
+endd			end
