@@ -1,24 +1,39 @@
-		LDR		R1,=1003
+		LDR		R1,=1511
 		
 		;		1001 = 1111101001
 		mov		R6,#0b11101001
 		add		R6,R6,#0b1100000000
 		
-		
+		cmp		R1,R6
+		ble		LowCase
 		;		1001 ending in binary 00100011111101111111110101110001
 		;add		23F7FD71
 		
+		
+		;		Literal = AF850171
+		add		r6,r6,#512
+		cmp		R1,R6
+		Ble		MidCase
+		
+		mov		r7,   #0xAF000000
+		add		R7,R7,#0x00850000
+		add		R7,R7,#0x00000100
+		add		R7,R7,#0x00000071
+		mov		r8,r7
+		b		MainLoop
+		
+MidCase	Sub		r6,r6,#512
 		mov		r7,   #0x23000000
 		add		R7,R7,#0x00F70000
 		add		R7,R7,#0x0000FD00
 		add		R7,R7,#0x00000071
-		
-		mov		r6,#1
-		Ldr		r1,=1003
-		
-		;mov		R8,R7
-		;add		r1,r1,#2
+		mov		r8,r7
+		b		MainLoop
+		;less	than 1001 case
+LowCase	mov		r6,#1
 		mov		R8,R6
+		
+		
 MainLoop
 		mov		R10,R8
 		mov		R8,#0
@@ -42,3 +57,12 @@ endd
 		cmp		R1,R6
 		bne		MainLoop
 		mov		R0,R8
+		
+		
+		
+		
+		and		r1,r1,#2
+		cmp		r1,#2
+		beq		EndStop
+		rsb		r0,r0,#0
+EndStop	end
