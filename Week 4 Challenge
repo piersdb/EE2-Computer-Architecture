@@ -1,0 +1,16 @@
+		mov		R10,#5
+		
+		
+		
+		mov		R12,#1
+		mov		R9,R10
+Top		And		R11,R9,R12
+		CMP		R11,#0
+		BEQ		SkipAdd
+		ADD		R8,R8,R10
+SkipAdd	CMP		R12,#2147483648
+		BEQ		endd
+		Add		R12,R12,R12
+		Add		R10,R10,R10
+		b		Top
+endd		
