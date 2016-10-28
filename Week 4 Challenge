@@ -13,15 +13,17 @@
 		add		R7,R7,#0x0000FD00
 		add		R7,R7,#0x00000071
 		
-		
+		mov		r6,#1
+		Ldr		r1,=1003
 		
 		;mov		R8,R7
-		add		r1,r1,#2
-		
+		;add		r1,r1,#2
+		mov		R8,R6
 MainLoop
-		mov		R10,R1
-		;add		R9,R6,#2
-		mov		R9,R1
+		mov		R10,R8
+		mov		R8,#0
+		add		R9,R6,#2
+		
 		
 		mov		R12,#1
 		
@@ -39,3 +41,4 @@ endd
 		add		r6,r6,#2
 		cmp		R1,R6
 		bne		MainLoop
+		mov		R0,R8
