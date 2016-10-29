@@ -1,4 +1,4 @@
-		LDR		R1,=1 ; Doesnt Count towards line num
+		LDR		R1,=9 ; Doesnt Count towards line num
 		
 		;		1001 = 1111101001
 		mov		R6,#0x670
@@ -44,8 +44,8 @@ LowCase	sub		r6,r6,#336
 		
 		
 		;less	than 991 case
-VLowCase	mov		r6,#1
-		mov		R8,R6
+VLowCase	mvn		r6,#0
+		mov		R8,#1
 		
 		
 MainLoop
