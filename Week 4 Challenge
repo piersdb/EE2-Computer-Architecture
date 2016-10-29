@@ -1,36 +1,50 @@
-		LDR		R1,=1511
+		LDR		R1,=1 ; Doesnt Count towards line num
 		
 		;		1001 = 1111101001
-		mov		R6,#0b11101001
-		add		R6,R6,#0b1100000000
+		mov		R6,#0x670
+		add		R6,R6,#0xf
 		
 		cmp		R1,R6
-		ble		LowCase
+		ble		MidCase
 		;		1001 ending in binary 00100011111101111111110101110001
 		;add		23F7FD71
 		
 		
-		;		Literal = AF850171
-		add		r6,r6,#512
+		;		1663 -> 20CA8281
+		;		1513!!
+		mov		r8,   #0x20000000
+		add		r8,r8,#0x00CA0000
+		add		r8,r8,#0x00008200
+		add		r8,r8,#0x00000081
+		b		MainLoop
+		
+		;1327	-> 91592A31
+MidCase	sub		r6,r6,#336
 		cmp		R1,R6
-		Ble		MidCase
+		Ble		LowCase
 		
-		mov		r7,   #0xAF000000
-		add		R7,R7,#0x00850000
-		add		R7,R7,#0x00000100
-		add		R7,R7,#0x00000071
-		mov		r8,r7
+		;		1001!!
+		mov		r8,   #0x91000000
+		add		r8,r8,#0x00590000
+		add		r8,r8,#0x00002A00
+		add		r8,r8,#0x00000031
+		
 		b		MainLoop
 		
-MidCase	Sub		r6,r6,#512
-		mov		r7,   #0x23000000
-		add		R7,R7,#0x00F70000
-		add		R7,R7,#0x0000FD00
-		add		R7,R7,#0x00000071
-		mov		r8,r7
+		;991->7D8172E1
+LowCase	sub		r6,r6,#336
+		cmp		R1,R6
+		Ble		VLowCase
+		;		1001!!
+		mov		r8,   #0x7D000000
+		add		r8,r8,#0x00810000
+		add		r8,r8,#0x00007200
+		add		r8,r8,#0x000000E1
 		b		MainLoop
-		;less	than 1001 case
-LowCase	mov		r6,#1
+		
+		
+		;less	than 991 case
+VLowCase	mov		r6,#1
 		mov		R8,R6
 		
 		
