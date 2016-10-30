@@ -1,4 +1,5 @@
-		LDR		R1,=9 ; Doesnt Count towards line num
+		;		Longest Execution time is 22254 occuring at iput=1327
+		;LDR		R1,=1327 ; Doesnt Count towards line num
 		
 		;		1001 = 1111101001
 		mov		R6,#0x670
@@ -60,7 +61,7 @@ Top		And		R11,R9,R12
 		CMP		R11,#0
 		BEQ		SkipAdd
 		ADD		R8,R8,R10
-SkipAdd	CMP		R12,#4096
+SkipAdd	CMP		R12,#1024
 		BEQ		endd
 		Add		R12,R12,R12
 		Add		R10,R10,R10
@@ -80,3 +81,12 @@ endd
 		beq		EndStop
 		rsb		r0,r0,#0
 EndStop	end
+		
+		;		My algorithm focusses on two main speedups, the multiplication and precalculation of solutions
+		;		The multiplication is done the way we are taught to do multiplication in school, by multilieying all the
+		;digits	together, shifting the result by a factor of 10 as we move from right to left. My solution has two registers where
+		;		the input is stored, R10 and R9. If bit i of r9 is 0, we skip. if 1, we can shift the result by i and add it to the "accumulator"
+		;		Th eoptimisation is insuring we dont put more than 1999 into r9. 1999 only has 11 bits so we can only check 11 rather than 32 for all numbers in our range.
+		
+		;		Chaching precalculated values means that we can limit the number of numbers we have to multiply by approximatly 3 in my case. The program is simplified by
+		;		waiting until the end to handle negative numbers.
