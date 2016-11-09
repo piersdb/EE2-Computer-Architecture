@@ -1,8 +1,7 @@
-		ldr		r1,=5
+		ldr		r1,=-201
 		
 		;		r0 decimal input
 		;		r1 signed input
-		movs		r3,r1
 		mov		r3,r1, lsr #31
 		
 		mov		r0,r1,lsl #31
