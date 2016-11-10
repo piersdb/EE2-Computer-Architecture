@@ -1,16 +1,15 @@
-		ldr		r1,=0x7FFDDFFF
+		;ldr		r1,=0x80000000
 		
-		;		r0 decimal input
-		;		r1 signed input
 		
+		
+		;		This Works
 		mov		r0,r1,lsl #31
 		
+		mov		r3,r1,lsl #1
 		
-		add		r1,r1,r1,lsl #2
-		asrs		r1,r1,#1
+		asr		r1,r1, #1
+		
+		adds		r1,r1,r3
 		
 		movmi	r2,#1
 		eorcs	r2,r2,#1
-		
-		;cmp		r2,#1
-		;subeq	r1,r1,#1
