@@ -6,8 +6,8 @@
 		
 		mov		r10,#0xAA
 		add		r10,r10,#0xAA00
-		add		r10,r10,#0xAA0000
-		add		r10,r10,#0xAA000000
+		add		r10,r10,r10,lsl #16
+		
 		
 		
 		and		r3,r1,r10
