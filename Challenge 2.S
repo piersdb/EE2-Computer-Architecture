@@ -1,24 +1,24 @@
-		LDR		r1, =0b10010100110
-		LDR		R2, =0b10
+		;LDR		r1, =0b10010100110
+		LDR		R2, =0b1001
+		ldr		r1,=0b0110
 		
 		
 		
-		mov		R4,#0
-		mov		R5,#3
+		mov		r10,#0xAA
+		add		r10,r10,#0xAA00
+		add		r10,r10,#0xAA0000
+		add		r10,r10,#0xAA000000
 		
 		
-MainLoop	and		R6,R5,R1,lsr r4
-		and		r7,R5,R2,lsr r4
+		and		r3,r1,r10
+		and		r4,r2,r10
+		lsr		r3,r3,#1
+		lsr		r4,r4,#1
+		orr		r1,r1,r3
+		orr		r2,r2,r4
 		
-		add		r8,r6,r7
-		add		r8,r8,r10
-		cmp		r8,#2
-		addgt	r8,r8,#1
-		lsr		r10,r8,#2
-		subgt	r8,r8,#4
+		add		r5,r1,r2
 		
-		add		r0,r0,r8, lsl R4
-		
-		add		r4,r4,#2
-		cmp		r4,#15
-		ble		MainLoop
+		and		r0,r5,r10
+		eor		r5,r5,r0
+		orr		r0,r5,r0,lsr #1
