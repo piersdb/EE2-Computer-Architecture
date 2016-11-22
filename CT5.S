@@ -1,13 +1,11 @@
 		;		r0 is input
 		;		r1 is output no registers changed
 		
-		;ldr		r0,=0xFFFF67F6
-		
-		ADR		r1,JumpTable
+		;ldr		r0,=2
 		cmp		r0, #15
-		
-		ldr		r1,[r1,r0,lsl #2]
-		movgt	r1,#0
+		ADRLS	r1,JumpTable
+		LDRLS	r1,[r1,r0,lsl #2]
+		MOVHI	r1,#0
 		
 		
 		
