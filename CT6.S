@@ -1,16 +1,3 @@
-INWAVE	DCD		0x7FFFFFFF,3,-5,5,0x7FFFFFFF,-5,-5,3, 3, 4,4, 4,5,5,5,6
-OUTWAVE	FILL		14*4
-		
-		mov		r4,#12
-		mov		r7,#15
-		
-		bl		WAVE
-		End
-		
-		
-		
-		
-		
 WAVE
 		stmed	SP!,{r4-r7}
 		adr		r7,INWAVE
@@ -34,5 +21,10 @@ LOOP
 		moveq	r0,#0
 		movne	r0,#1
 		
-		
 		mov		pc,lr
+
+
+
+		
+INWAVE	DCD		500,1000,500,700, 2000, 4000, 3000, 11000, 50, 300, 400, 800,750,300,100000,1000
+OUTWAVE	FILL		14*4
