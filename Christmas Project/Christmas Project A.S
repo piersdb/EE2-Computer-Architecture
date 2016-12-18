@@ -1,5 +1,5 @@
 		LDR		r0,=0xFFFFFF
-		LDR		r1,=0xFF
+		LDR		r1,=0xFFF
 		
 		bl		MUL24X24
 		end
@@ -37,18 +37,18 @@ LOOP
 		cmp		r2,r7
 		ble		LOOP
 		
-		; SMALL
-		mov r5,r6
-
+		;		SMALL
+		mov		r5,r6
+		
 		;Medium
 		
-
-		adds r5,r5,r10, lsl #8 ; bottom 24 bits
-		addcs r4,r4,r10,lsr #24 ; Top 8 bits
+		
+		adds		r5,r5,r10, lsl #8 ; bottom 24 bits
+		adc		r4,r4,r10,lsr #24 ; Top 8 bits
 		
 		
-		adds r5,r5,r8, lsl #16
-		adc r4,r4,r8,lsr #16
+		adds		r5,r5,r8, lsl #16
+		adc		r4,r4,r8,lsr #16
 		
 		
 		
