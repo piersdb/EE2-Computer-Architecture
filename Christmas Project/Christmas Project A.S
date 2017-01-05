@@ -1,12 +1,10 @@
-
-		
 MUL24X24
 		stmed	SP!,{r7-r12}
 		mov		r7,#0 ; Counter
 		mov		r12,#1 ; bitmask
 		mov		r3,#0 ; output Top
 		mov		r2,#0 ; output bottom
-
+		
 		mov		r8,#0 ; tempory Big
 		mov		r9,#0 ; bitmask big
 		mov		r10,#0 ;temp Medium
