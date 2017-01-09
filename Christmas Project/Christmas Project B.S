@@ -1,15 +1,28 @@
-				;ldr		r0,=0xa890d13
-				;ldr		r1,=0x32aedb1c
+				;ldr		r0,=0x3f000000
+				;ldr		r1,=0x1
 				
-				;LDR		r1,=0x2bf7c0e5
-				;LDR		r0,=0x44878178
+				;LDR		r1,=0x25796a49
+				;LDR		r0,=0x14406108
 				;ldr		r0,=0x505f0e ; Input A
 				;ldr		r1,=0xbe8d61d4 ; Input B
 				
 				bl		IEEE754MULT
 				end
 				
-IEEE754MULT
+IEEE754MULT		
+				stmed R13!,{r3-r12}
+				mov r2,#0
+				mov r3,#0
+				mov r4,#0
+				mov r5,#0
+				mov r6,#0
+				mov r7,#0
+				mov r8,#0
+				mov r9,#0
+				mov r10,#0
+				mov r11,#0
+				mov r12,#0
+				
 				;		r3 is sign bit
 				and		r3,r0,#0x80000000
 				and		r4,r1,#0x80000000
@@ -29,10 +42,13 @@ IEEE754MULT
 				;r6		is matissa of r0
 				lsl		r6,r0,#9
 				lsr		r6,r6,#9
+				
 				;		r0 normalised check
 				cmp		r4,#0
 				orrne	r6,r6,#0x00800000
-				
+				moveq	r4,#2
+				moveq	r12,#1
+				;lsleq	r6,r6,#1
 				
 				;r7		is matissa of r1
 				lsl		r7,r1,#9
@@ -41,6 +57,9 @@ IEEE754MULT
 				;r7		normalised check
 				cmp		r5,#0
 				orrne	r7,r7,#0x00800000
+				moveq	r5,#2
+				moveq	r12,#1
+				;lsleq	r7,r7,#1
 				
 				;Ontained	all components of each number------------------------------------------------------------
 				
@@ -48,12 +67,14 @@ IEEE754MULT
 				mov		r9,r0,lsl #1
 				cmp		r9,#0xFF000000
 				movhi	r2,r0
-				movhi	pc,lr
+				orrhi	r2,r2,#0x00400000
+				bhi		EndRoutine
 				
 				mov		r9,r1,lsl #1
 				cmp		r9,#0xFF000000
 				movhi	r2,r1
-				movhi	pc,lr
+				orrhi	r2,r2,#0x00400000
+				Bhi		EndRoutine
 				;		end nan checks
 				
 				
@@ -151,23 +172,39 @@ LOOPCounterA		lsl		r10,r10,#1
 				
 				
 				
-					;		denormalised handling
+				;		denormalised handling
 				cmp		r4,#0
 				addgt	r4,r4,#1
+				subgt	r4,r4,r12
 				bgt		EndDenormalised
+				
+				tst		r3,#0x00008000
+				subne	r4,r4,#1
+				
 				rsb		r3,r4,#0
-				cmp		r9,#0
-				lsreq	r10,r10,r3
+				sub		r3,r3,#1
+				lsr		r10,r10,r3
+				lsr		r10,r10,r9
+				mov		r4,#0
+				b		EndDenormalised
 				;lsreq	r10,r10,#1
+				
+				
+				;For		debugging
+				mov		r12,r4
+				
+				
 				mov		r4,#0
 				beq		EndDenormalised
 				sub		r3,r3,r9
-				add		r3,r3,#1
+				;add		r3,r3,#1
 				lsr		r10,r10,r3
-				sub		r9,r9,r3
+				;sub		r9,r9,r3
 				
 				
+				;For		debugging
 				
+				mov		r5, r3
 				
 				
 EndDenormalised
@@ -206,7 +243,8 @@ EndLoop
 				
 				
 				
-EndRoutine
+EndRoutine		
+				ldmed R13!,{r3-r12}
 				mov		pc,LR
 				
 				
@@ -214,6 +252,7 @@ ReturnInfinity
 				
 				ldr		r2,=0x7f800000
 				eor		r2,r2,r3
+				ldmed R13!,{r3-r12}
 				mov		pc,lr
 				
 				
